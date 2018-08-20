@@ -1,5 +1,27 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.headline {
+  font-size: 24px;
+  color: #005b95;
+}
+
+.title {
+  font-size: 20px;
+  color: #005b95;
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.button-label {
+  font-size: 14px;
+  font-weight: bold;
 }
