@@ -17,10 +17,19 @@ class MainView extends Component {
         this.state = {DialogOn: false};
     }
 
+    static contextTypes = {
+        router: PropTypes.object
+    }
+    
     handleToogleDialog = () => {
         this.setState(prevState => ({
             DialogOn: !prevState.DialogOn
         }));
+    }
+
+    handleProcessSearchTerm = (process) => {
+        this.props.getProcessBySearchTerm(process);
+        this.context.router.history.push("/processos");
     }
 
     render() {
@@ -37,10 +46,10 @@ class MainView extends Component {
                     className={classes.grid}
                 >
                     <Grid item xs={12} sm={6}>
-                        <div className="headline">Busca de Processos</div>
+                        <div className="headline blue">Busca de Processos</div>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <ProssesSearchInput onClick={this.props.getProcessBySearchTerm}/>
+                        <ProssesSearchInput onClick={this.handleProcessSearchTerm}/>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <div>
