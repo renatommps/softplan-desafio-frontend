@@ -8,12 +8,14 @@ body {
 
 .headline {
   font-size: 24px;
+}
+
+.blue {
   color: #005b95;
 }
 
 .title {
   font-size: 20px;
-  color: #005b95;
 }
 
 .subtitle {
