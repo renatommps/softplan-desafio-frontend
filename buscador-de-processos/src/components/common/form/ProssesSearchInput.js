@@ -23,14 +23,8 @@ class ProssesSearchInput extends Component {
 
     handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            this.handleClick();
+            this.props.onClick(this.state.processInfo);
         }
-    }
-
-    handleClick = () => {
-        console.log("clicou: " + this.state.processInfo.trim());
-        this.props.onClick(this.state.processInfo.trim());
-        this.context.router.history.push("/processos");
     }
 
     handleInput = (event) => {
@@ -52,7 +46,7 @@ class ProssesSearchInput extends Component {
                 fullWidth={true}
                 endAdornment={
                     <InputAdornment position="end">
-                        <IconButton  aria-label="search"  onClick={this.handleClick}>
+                        <IconButton  aria-label="search"  onClick={() => this.props.onClick(this.state.processInfo)}>
                             <SearchIcon />
                         </IconButton>
                     </InputAdornment>
