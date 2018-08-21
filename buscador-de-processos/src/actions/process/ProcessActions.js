@@ -2,12 +2,27 @@ import axios from 'axios';
 import consts from '../../consts';
 
 export const selectProcess = (process) => {
-    console.log("clicked process " + process.id);
     return {
         type: "PROCESS_SELECTED",
         payload: process
     }
 };
+
+export function getProcessById(id) {
+    let url = `${consts.API_URL}/processo/${id}`;
+
+    return function (dispatch) { 
+        axios.get(url)
+        .then((response) => dispatch({
+            type: 'PREOCESSES_FETCHED',
+            payload: response.data
+        }))
+        .catch((response) => dispatch({
+            type: 'PREOCESSES_FETCHED_ERROR',
+            error: response.error
+        }))
+    }
+}
 
 export function getProcessBySearchTerm(searchTerm) {
     let url = `${consts.API_URL}/processo?q=${searchTerm}`;
@@ -26,7 +41,6 @@ export function getProcessBySearchTerm(searchTerm) {
 }
 
 export function submitProcess(process) {
-    console.log("submitProcess action called! process: " + JSON.stringify(process));
     let url = `${consts.API_URL}/processo`;
     let body = process;
     let headers =  {
@@ -41,6 +55,22 @@ export function submitProcess(process) {
         }))
         .catch((response) => dispatch({
             type: 'PROCESS_SUBMISSION_ERROR',
+            error: response.error
+        }))
+    }
+}
+
+export function deleteProcessById(id) {
+    let url = `${consts.API_URL}/processo/${id}`;
+
+    return function (dispatch) { 
+        axios.delete(url)
+        .then((response) => dispatch({
+            type: 'PREOCESSES_DELETED_SUCESS',
+            payload: response.data
+        }))
+        .catch((response) => dispatch({
+            type: 'PREOCESSES_DELETED_ERROR',
             error: response.error
         }))
     }
