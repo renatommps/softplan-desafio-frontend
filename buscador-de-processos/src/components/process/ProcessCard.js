@@ -32,7 +32,7 @@ class ProcessCard extends Component {
         return (
             <Card className={rootClasses} onClick={this.handleClick}>
                 <CardContent className={classes.cardContent}>
-                    <Grid container spacing={8} direction="row" justify="center" alignItems="center">
+                    <Grid container className={classes.cardContent} spacing={8} direction="row" justify="center" alignItems="center">
 
                         <Grid container item xs={gridsNumber} spacing={8} direction="column" justify="center">
                             <Typography className={classes.gridItemText} color="textSecondary">
@@ -81,10 +81,13 @@ class ProcessCard extends Component {
 
 const styles = {
     cardRoot: {
+        height: '90px',
         padding: 0,
     },
     cardContent: {
-        padding: 10,
+        height: '100%',
+        position: 'relative',
+        padding: 0,
     },
     gridItem: {
         padding: 5,
@@ -100,6 +103,7 @@ const styles = {
         borderColor: '#005b95',
         borderStyle: 'solid',
         borderWidth: '2px',
+        height: '90px',
     },
     cardAction: {
         padding: 0,
