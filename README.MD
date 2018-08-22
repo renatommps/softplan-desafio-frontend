@@ -1,28 +1,5 @@
 # Desafio implementador front-end: React, HTML, CSS & JS
 
-Seja parte da jornada de transformação digital no Brasil.
-
-Esse é o nosso desafio para a vaga de implementador front-end na [Softplan](https://www.softplan.com.br/carreira/). Serão testadas as habilidades e qualidade de código ao transformar um layout em uma **SPA**.
-
-Procuramos desenvolvedor versátil para resolver os mais diversos problemas, que impactam no negócio do cliente, utilizando conhecimento em tecnologias front-end como meio para isso. Sinta-se confortável com desafios e seja engajado com o que há de melhor no mercado e boas práticas para trabalhar com inovação, tecnologias modernas e emergentes na Softplan, empresa no Top 10 dos melhores lugares para se trabalhar em Santa Catarina (GPTW 2017).
-
-### O que você traz?
-- Perfil proativo, saber trabalhar em equipe , raciocínio lógico, responsabilidade e comprometimento são imprescindíveis para essa oportunidade.
-- Fácil adaptação em projetos experimentais e complexos.
-- Aprendizado rápido no uso de tecnologias de desenvolvimento de software
-- Experiência em Desenvolvimento de software Web
-
-### O que oferecemos
-- Oportunidade de desenvolvimento profissional, meet ups, capacitação e treinamento in-company
-- Apoio no seu crescimento e aprendizado com bolsas de graduação, pós-graduação e verba para cursos e eventos de aprendizado externos
-- Plano de bonificação por atingimento de metas
-- Biblioteca colaborativa
-- Ginástica laboral
-- No dress code
-- Parcerias com desconto em academias, restaurantes, salão de beleza, etc.
-- Espaço para refeições, com geladeira e microondas
-- Vale alimentação/refeição, auxílio transporte, assistência médica e odontológica
-
 
 ### Instruções para o desafio
 
@@ -37,97 +14,46 @@ Procuramos desenvolvedor versátil para resolver os mais diversos problemas, que
     - Inserir, editar e excluir um processo
 - Siga os [protótipos](https://www.figma.com/proto/BTa9Vpz4S1XUscURxANvFH5Z/DESAFIO?node-id=19%3A70&scaling=scale-down&redirected=1) e o [guideline](https://www.figma.com/proto/BTa9Vpz4S1XUscURxANvFH5Z/DESAFIO?node-id=27%3A1&scaling=contain&redirected=1) disponibilizados ao máximo
 
-
-### O que será avaliado
-- O código será avaliado seguindo os seguintes critérios: manutenabilidade, clareza e limpeza de código; resultado funcional; entre outros fatores
-- O histórico no `git` também está avaliado
-- Não esqueça de documentar o processo necessário para rodar a aplicação
-- Apesar de não ter uma limitação de tempo, recomendamos não investir mais de 16 horas de trabalho nesse desafio
-- Se necessário explique as decisões técnicas tomadas, as escolhas por bibliotecas e ferrramentas, o uso de patterns etc. 
+***
 
 
-### Considerações 
-- Considerar que os seguintes endpoints estão disponíveis (`docker run -p 3002:3002 gcpasquadproduto/softplan-desafio-frontend`)
-```
-$ curl -i -X POST http://localhost:3002/processo \
-        -H 'accept: application/json' \
-        -H 'content-type: application/json' \
-        -d '{"descricao" : "Solicitação de licença-prêmio", "assunto" : "Licença", "interessados" : ["Edmilson Cherem"]}'
+### Considerações de desenvolvimento aos avaliadores
+- Sobre o projeto
+    - Para criar o projeto do zero utilizei o create-react-app, ferrameta disponibilizada pelo Facebook amplamente utilizada 
+    para facilitar a criação de novos projetos. A estrutura básica gerada do projeto não foi alterada.
+    - Para gerenciar os estados da aplicação decidi utilizar Redux, que é uma bibliotéca bastante conhecida e utilizada.
+    - Para o layout foi utilizado Material-UI, conjunto de componentes que implementam Material Design do Google, foi escolhido por ser 
+    bastante utilizado e facilitar o desenvolvimento, diminuíndo bastante a quantidade de CSS que deve ser gerenciado.
+- Sobre o desenvolvimento
+    - Antes de iniciar esse projeto, eu não tinha experiências anteriores com Redux e nem com Material-UI, aproveitei a oportunidade
+    do desafio para ter um contato iniciar com essas ferramentas.
+    - Redux, em particular, foi a parte mais trabalhosa, e que necessitou de um tempo considerável para aprender a utilizar, o que 
+    pesou bastante no tempo total gasto.
+- Pontos a melhorar
+    - Utilização de docker foi deixado fora dos entregáveis, visto a falta de tempo para dedicar ao estudo de como utilizar a
+    ferramenta, à qual não tenho experiências anteriores usando.
+    - Teste de código também foi deixado para melhoramentos futuros.
+    - Apesar de estar utilizando Redux, a implementação do formulário da aplicação não esta ideal, e seria ponto para ser melhorado,
+    juntamente com a validação dos campoos.
+    - A aplicação não esta com layout totalmente responsivo, e existem partes para ser melhoradas no layout.
+- Considerações finais
+    - O botão de editar o processo esta desativado por, dentre os endpoints disponibilizados, não ter um para edição de processo.
+    - Considerando os pontos de melhoria que citei, o foco que decidi dar no projeto foi na arquitetura geral, tentando ser
+    o mais simples possível, deixando o projeto simples para melhorias.
 
-HTTP/1.1 201 
-Location: http://localhost:3002/processo/04c7197f-c0fe-4dab-b27c-d69611eca40f
-Content-Length: 0
-Date: Tue, 07 Aug 2018 20:26:22 GMT
-```
+### Scripts
+Os scripts devem ser rodados no diretório raiz do projeto /buscador-de-processos, e antes de rodar os scripts deve primeiramente ser
+baixadas as dependências com `npm install`.
 
-```
-$ curl -i -X GET http://localhost:3002/processo/04c7197f-c0fe-4dab-b27c-d69611eca40f
+### `npm start`
+Roda a aplicação em modo de desenvolvimento.
 
-HTTP/1.1 200 
-Content-Type: application/json;charset=UTF-8
-Transfer-Encoding: chunked
-Date: Tue, 07 Aug 2018 20:32:59 GMT
-{
-    "id": "04c7197f-c0fe-4dab-b27c-d69611eca40f",
-    "numero": "SOFT 2018/00008",
-    "entrada": "07/08/2018",
-    "descricao": "Solicitação de licença-prêmio",
-    "assunto" : "Licença",
-    "interessados": ["Edmilson Cherem"]
-}
-```
+### `npm run build`
+Faz o build do projeto para modo de produção (na pasta build)
 
-```
-curl -i -X GET http://localhost:3002/processo?q=licenca \
-  -H 'accept: application/json' \
-  -H 'content-type: application/json'
+### Demais scripts
+Na pasta raiz do projeto existe outro arquivo chamado README, o qual foi gerado automaticamente e tem a lista completa de
+todos scripts possíveis de se rodar, entre outras informações complementares.
 
-HTTP/1.1 200 
-Content-Type: application/json;charset=UTF-8
-Transfer-Encoding: chunked
-Date: Tue, 07 Aug 2018 20:29:43 GMT
-[
-    {
-        "id": "04c7197f-c0fe-4dab-b27c-d69611eca40f",
-        "numero": "SOFT 2018/00008",
-        "entrada": "07/08/2018",
-        "descricao": "Solicitação de licença-prêmio",
-        "assunto" : "Licença",
-    	"interessados": ["Edmilson Cherem"]
-    }
-]
-```
-
-```
-$ curl -i -X DELETE http://localhost:3002/processo/04c7197f-c0fe-4dab-b27c-d69611eca40f
-
-HTTP/1.1 200 
-Content-Type: application/json;charset=UTF-8
-Transfer-Encoding: chunked
-Date: Tue, 07 Aug 2018 20:32:59 GMT
-{
-    "id": "04c7197f-c0fe-4dab-b27c-d69611eca40f",
-    "numero": "SOFT 2018/00008",
-    "entrada": "07/08/2018",
-    "descricao": "Solicitação de licença-prêmio",
-    "assunto" : "Licença",
-    "interessados": ["Edmilson Cherem"]
-}
-```
-
-
-### Diferenciais
-- Adaptar a página para dispositivos móveis (torná-la responsiva).
-- Liberação da aplicação utilizando Docker.
-- Boa documentação.
-- Teste do código.
-
-
----
-Em caso de dúvidas, envie um email para [g_cpa_squad_produto@softplan.com.br](mailto:g_cpa_squad_produto@softplan.com.br).
-
-
-**Um dos nossos pilares é a valorização das pessoas e temos orgulho de dizer que somos uma empresa que apoia a diversidade e inclusão. Sendo assim, consideramos todos os candidatos para as nossas oportunidades, independente de raça, cor, religião, gênero, identidade de gênero, nacionalidade, deficiência, ascendência ou idade.**
-
-
-**Até breve**
+### Avaliação e feedback
+Desde já, agradeço a oportunidade do processo seletivo, e independente do resultado do processo seletivo, agradeço por qualquer feedback que possam dar, seja negativo ou positivo :)
