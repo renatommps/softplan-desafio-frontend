@@ -28,6 +28,10 @@ class ProcessRegisterDialog extends Component {
         this.state = initialState;
     }
 
+    handleEnter = () => {
+        this.setState(initialState);
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.handleSave(_.omit(this.state,'novoInteressado'));
@@ -99,28 +103,29 @@ class ProcessRegisterDialog extends Component {
         return (
             <Dialog
                 open={open}
+                onEnter={this.handleEnter}
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
                 fullWidth={true}
             >
                 <DialogTitle id="form-dialog-title" disableTypography className={classes.dialogTitle}>
-                    <h2>Cadastro de processo</h2>
+                    <div className={"title"}>Cadastro de processo</div>
                     <IconButton onClick={handleClose}>
                         <CloseIcon />
                     </IconButton>
                 </DialogTitle>
                 <form onSubmit={this.handleSubmit}>
-                    <DialogContent>
-                        <Grid container>
+                    <DialogContent className={classes.dialogContent}>
+                        <Grid container item xs={10} direction="row">
                             <Grid 
-                                item xs={12} sm container
+                                item xs={12} container
                                 direction="column"
                                 justify="center"
                                 alignItems="flex-start"
                                 spacing={8}
                                 className={classes.grid}
                             >
-                                <Grid item xs={6}>
+                                <Grid item xs={6} className={classes.gridRow}>
                                     <TextField
                                         margin="dense"
                                         id="assunto"
@@ -130,7 +135,7 @@ class ProcessRegisterDialog extends Component {
                                         onChange={this.handleInput}
                                     />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={6} className={classes.gridRow}>
                                     <TextField
                                         margin="dense"
                                         id="interessados"
@@ -147,26 +152,32 @@ class ProcessRegisterDialog extends Component {
                                         onChange={this.handleInput}
                                     />
                                 </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        margin="dense"
-                                        id="novoInteressado"
-                                        label="Novo interessado"
-                                        type="text"
-                                        fullWidth
-                                        onChange={this.handleInput}
-                                    />
-                                    <Button onClick={this.handleAddNewInterested} 
-                                        variant="contained" className={classes.button}>
-                                        ADICIONAR
-                                    </Button>
+                                <Grid container item xs={12} spacing={8} className={classes.gridRow} direction="row" justify="space-between">
+                                    <Grid container item xs={6} justify="center" alignItems="center">
+                                        <TextField
+                                            margin="dense"
+                                            id="novoInteressado"
+                                            label="Novo interessado"
+                                            type="text"
+                                            value={this.state.novoInteressado}
+                                            fullWidth
+                                            onChange={this.handleInput}
+                                        />
+                                    </Grid>
+                                    <Grid container item xs={6} justify="flex-start" alignItems="center">
+                                        <Button onClick={this.handleAddNewInterested} 
+                                            variant="contained" className={classes.button}>
+                                            ADICIONAR
+                                        </Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={12} className={classes.gridRow}>
                                     <TextField
                                         margin="dense"
                                         id="descricao"
                                         label="Descrição"
                                         type="text"
+                                        multiline
                                         fullWidth
                                         onChange={this.handleInput}
                                     />
@@ -195,6 +206,10 @@ const styles = theme => ({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        paddingBottom: 0,
+    },
+    dialogContent: {
+        paddingTop: "0 !important",
     },
     grid: {
         position: "relative",
@@ -202,11 +217,13 @@ const styles = theme => ({
         bottom: 0,
         margin: "auto",
     },
-    bottom: {
+    gridRow: {
+        width: "100%",
+    },
+    button: {
         fontSize: "14px",
         fontWeight: "bold",
-        color: "#005b95",
-        textDecoration: "underline",
+        color: "white",
     },
 });
 
