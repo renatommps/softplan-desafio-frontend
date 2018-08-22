@@ -55,7 +55,7 @@ class MainView extends Component {
                         <div>
                             <span>Você pode criar um novo processo </span>
                             <Link to="#" style={styles.bottom} onClick={this.handleToogleDialog}>
-                                Clicando aqui
+                                clicando aqui
                             </Link>
                         </div>
                     </Grid>
@@ -70,7 +70,7 @@ class MainView extends Component {
     }
 }
 
-const styles = theme => ({
+const styles =  {
     root: {
         flexGrow: 1,
         position: "absolute",
@@ -85,12 +85,14 @@ const styles = theme => ({
         margin: "auto",
     },
     bottom: {
-        fontSize: "14px",
         fontWeight: "bold",
         color: "#005b95",
         textDecoration: "underline",
+        "&::visited": {
+            color: "#005b95",
+        },
     },
-});
+};
 
 MainView.propTypes = {
     classes: PropTypes.object.isRequired,
