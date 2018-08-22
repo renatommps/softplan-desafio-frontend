@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -11,6 +10,7 @@ import ProcessInfo from '../../components/process/ProcessInfo'
 import { getProcessBySearchTerm, selectProcess, submitProcess, deleteProcessById } from './../../actions/process/ProcessActions';
 import ProssesSearchInput from '../../components/common/form/ProssesSearchInput';
 import ProcessRegisterDialog from '../../components/process/ProcessRegisterDialog';
+import Button from '@material-ui/core/Button';
 
 
 class ProcessListView extends Component {
@@ -36,12 +36,18 @@ class ProcessListView extends Component {
         this.props.selectProcess(process);
     }
 
-    handleDeleteProcess = () => {
-        this.props.deleteProcessById(this.props.selectedProcess.id)
-        this.props.selectProcess(null);
-        this.setState(prevState => ({
+    handleCloseProcess = () => {
+        this.setState({
             selectedProcessIndex: null
-        }));
+        })
+    }
+
+    handleDeleteProcess = () => {
+        this.props.deleteProcessById(this.props.selectedProcess.id);
+        this.props.selectProcess(null);
+        this.setState({
+            selectedProcessIndex: null
+        });
     }
     
     createProcessList = () => {
@@ -51,12 +57,15 @@ class ProcessListView extends Component {
         
         return this.props.processes.data.map( (process, index) => {
             return (
-                <ProcessCard 
-                    key={process.id+ '-' + index}
-                    process={process}
-                    selected={index === this.state.selectedProcessIndex}
-                    handleClick={() => this.handleSelectProcess(index, process)}
-                />
+                <Grid item key={process.id + '-grid-' + index}>
+                    <ProcessCard 
+                        key={process.id + '-' + index}
+                        process={process}
+                        selected={index === this.state.selectedProcessIndex}
+                        compact={this.state.selectedProcessIndex !== null}
+                        handleClick={() => this.handleSelectProcess(index, process)}
+                    />
+                </Grid>
             )
         })
     }
@@ -86,11 +95,9 @@ class ProcessListView extends Component {
                                 </Grid>
 
                                 <Grid item xs={7}>
-                                    <Paper>
-                                        <Link to="#" onClick={this.handleToogleDialog}>
-                                            NOVO
-                                        </Link>
-                                    </Paper>
+                                    <Button variant="outlined" className={"app-box-shadow"} onClick={this.handleToogleDialog}>
+                                        NOVO
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -106,7 +113,9 @@ class ProcessListView extends Component {
                         <Grid item xs={11}>
                             <Grid container item xs={12} direction="row" spacing={16}>
                                 <Grid item xs={this.state.selectedProcessIndex !== null ? 5 : 12}>
-                                    <Paper>{this.createProcessList()}</Paper>
+                                    <Grid container spacing={16} direction="column">
+                                        {this.createProcessList()}
+                                    </Grid>
                                 </Grid>
 
                                 {this.state.selectedProcessIndex !== null &&
@@ -114,6 +123,7 @@ class ProcessListView extends Component {
                                     <ProcessInfo
                                         deleteProcess={this.handleDeleteProcess}
                                         process={this.props.selectedProcess}
+                                        onClose={this.handleCloseProcess}
                                     />
                                 </Grid>
                                 }
@@ -136,18 +146,12 @@ const styles = {
         flexGrow: 1,
         padding: 25,
     },
-    cardContent: {
-        padding: 10,
-    },
     gridItemText: {
         textAlign: 'left',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
         whiteSpace: 'nowrap',
         minWidth: 0,
-    },
-    cardAction: {
-        padding: 0,
     },
 };
 
